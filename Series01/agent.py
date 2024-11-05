@@ -9,11 +9,11 @@ class SimpleReflexive:
     def __init__(self) -> None:
         pass
 
-    def action(self, percept, successor):
+    def action(self, percept):
         if percept == 0:
             print(f"The room was clean!")
-            possible_act = successor()
-            act = random.choice(possible_act)
+            moves = ['U', 'D', 'L', 'R']
+            act = random.choice(moves)
             print(f"I'll go {act[0]}")
             return act[0]
         else:
