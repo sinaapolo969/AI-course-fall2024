@@ -5,7 +5,7 @@ from typing import Tuple, Any
 
 class VacuumWorld:
 
-    def __init__(self, size=(4, 4), observability='Fully', num_agents=1,
+    def __init__(self, size=(4, 4), L_sahpe = False, observability='Fully', num_agents=1,
                  non_deterministic=False, sequential=False, dynamic=False,
                  continuous=False, ) -> None:
         # Env attributes
@@ -16,19 +16,24 @@ class VacuumWorld:
         self.sequential = sequential
         self.dynamic = dynamic
         self.continuous = continuous
+        self.L_shape = L_sahpe
+        self.location = [0, 0]
 
         self.__initialize_rooms()
 
     def __initialize_rooms(self):
         self.rooms = []
+        if self.L_shape:
+            self.rooms.append([random.choice([0, 1]) for _ in range(2)])
+            self.rooms.append([random.choice([0, 1])])
         for i in range(self.size[0]):
             self.rooms.append([random.choice([0, 1]) for _ in range(self.size[1])])
 
-    def successor(self, state) -> list:
+    def successor(self) -> list:
         """
-        inputs a state, and returns a list of possible actions.
+        returns a list of possible actions.
         """
-        x, y = state[0], state[1]
+        x, y = self.location[0], self.location[1]
         successors = []
         moves = {(-1, 0): 'U', (1, 0): 'D', (0, -1): 'L', (0, 1): 'R'}
         for dx, dy in moves.keys():
@@ -37,27 +42,27 @@ class VacuumWorld:
                 successors.append(list(moves[(dx, dy)]))
         return successors
 
-    def get_status(self, state) -> float | list[float]:
+    def get_status(self) -> float | list[float]:
         """
-        get the status of input state.
+        get the status of current loc.
         """
-        return self.rooms[state[0]][state[1]]
+        return self.rooms[self.location[0]][self.location[1]]
 
-    def set_status(self, state, action):
+    def step(self, action):
         """
-        inputs a state and a status from agent and updates the rooms.
+        get action from agent and updates the rooms.
         """
         if action == 'S':
-            self.rooms[state[0]][state[1]] = 0
+            self.rooms[self.location[0]][self.location[1]] = 0
         elif action == 'R':
-            state[1] += 1
+            self.location[1] += 1
         elif action == 'L':
-            state[1] -= 1
+            self.location[1] -= 1
         elif action == 'U':
-            state[0] -= 1
+            self.location[0] -= 1
         elif action == 'D':
-            state[0] += 1
-        return state
+            self.location[0] += 1
+        return self.location
 
     def goal_test(self):
         res = 0

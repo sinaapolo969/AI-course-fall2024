@@ -7,15 +7,15 @@ import random
 class SimpleReflexive:
 
     def __init__(self) -> None:
-        self.curr_x = 0
-        self.curr_y = 0
+        pass
 
     def action(self, percept, successor):
         if percept == 0:
             print(f"The room was clean!")
-            possible_act = successor([self.curr_x, self.curr_y])
+            possible_act = successor()
             act = random.choice(possible_act)
+            print(f"I'll go {act[0]}")
             return act[0]
         else:
-            print(f"The room was dirty!")
+            print(f"The room was dirty! I'll do cleaning.")
             return 'S'
