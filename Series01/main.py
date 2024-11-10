@@ -4,7 +4,7 @@ from perfmeasure import PerfurmanceMeasure
 from tabulate import tabulate
 
 pref_measure = PerfurmanceMeasure()
-env = VacuumWorld(size=(5, 5), L_sahpe=True, perf_measure=pref_measure)
+env = VacuumWorld(size=(5, 5), L_sahpe=True, perf_measure=pref_measure, non_deterministic=True)
 agent = SimpleReflexive()
 
 while not env.goal_test():

@@ -69,19 +69,35 @@ class VacuumWorld:
             self.pref_measure.F2 += 1
             return self.location
         if action == 'S':
-            if random.random() < 0.8:
+            if self.non_deterministic:
+                if random.random() < 0.8:
+                    self.rooms[self.location[0]][self.location[1]] = 0
+                    self.pref_measure.F4 += 1
+                else:
+                    print(f"Agent failed to clean the room {self.location}")
+                    self.pref_measure.F3 += 1
+            else:
                 self.rooms[self.location[0]][self.location[1]] = 0
                 self.pref_measure.F4 += 1
-            else:
-                self.pref_measure.F3 += 1
-        elif action == 'R':
-            self.location[1] += 1
-        elif action == 'L':
-            self.location[1] -= 1
-        elif action == 'U':
-            self.location[0] -= 1
-        elif action == 'D':
-            self.location[0] += 1
+
+        else:
+            if self.non_deterministic:
+                if random.random() > 0.8:
+                    print(f"Agent failed to move to {action}")
+                    moves = ['U', 'D', 'L', 'R']
+                    act = random.choice(moves)
+                    action = act
+            if self.successor(action) == True:
+                if action == 'R':
+                    self.location[1] += 1
+                elif action == 'L':
+                    self.location[1] -= 1
+                elif action == 'U':
+                    self.location[0] -= 1
+                elif action == 'D':
+                    self.location[0] += 1
+            elif self.successor(action) == False:
+                return self.location
         
         dirty_rooms = 0
         for room in self.rooms:
