@@ -2,12 +2,13 @@
 import random
 from typing import Tuple, Any
 from perfmeasure import *
+from abstract_agent import *
 
 
 
 class VacuumWorld:
 
-    def __init__(self, size=(4, 4), L_sahpe = False, observability='Fully', num_agents=1,
+    def __init__(self, agent, size=(4, 4), L_sahpe = False, observability='Fully', num_agents=1,
                  non_deterministic=False, sequential=False, dynamic=False,
                  continuous=False, perf_measure:PerfurmanceMeasure=None, 
                  no_location_sensor=False, no_status_sensor=False) -> None:
@@ -24,6 +25,7 @@ class VacuumWorld:
         self.no_location_sensor = no_location_sensor
         self.no_status_sensor = no_status_sensor
         self.location = [0, 0]
+        self.abs_agent = agent
 
         self.__initialize_rooms()
 
@@ -64,52 +66,59 @@ class VacuumWorld:
             return None
         return self.rooms[self.location[0]][self.location[1]]
 
-    def step(self, action):
+    def run(self, step_size=1) -> Any:
         """
         get action from agent and updates the rooms.
-        """            
-        if self.successor(action) == True:
-            self.pref_measure.F1 += 1
-        elif self.successor(action) == False:
-            self.pref_measure.F2 += 1
-            return self.location
-        if action == 'S':
-            if self.non_deterministic:
-                if random.random() < 0.8:
+        """
+        while not self.goal_test():
+            if self.no_location_sensor:
+                percept = State(None, self.get_status())
+            elif self.no_status_sensor:
+                percept = State(self.location, None)
+            elif self.no_location_sensor and self.no_status_sensor:
+                percept = State(None, None)
+            else:
+                percept = State(self.location, self.get_status())
+            action = self.abs_agent.run(percept, step_size=step_size)            
+            if self.successor(action.selected_action) == True:
+                self.pref_measure.F1 += 1
+            elif self.successor(action.selected_action) == False:
+                self.pref_measure.F2 += 1
+
+            if action.selected_action == 'S':
+                if self.non_deterministic:
+                    if random.random() < 0.8:
+                        self.rooms[self.location[0]][self.location[1]] = 0
+                        self.pref_measure.F4 += 1
+                    else:
+                        print(f"Agent failed to clean the room {self.location}")
+                        self.pref_measure.F3 += 1
+                else:
                     self.rooms[self.location[0]][self.location[1]] = 0
                     self.pref_measure.F4 += 1
-                else:
-                    print(f"Agent failed to clean the room {self.location}")
-                    self.pref_measure.F3 += 1
+
             else:
-                self.rooms[self.location[0]][self.location[1]] = 0
-                self.pref_measure.F4 += 1
+                if self.non_deterministic:
+                    if random.random() > 0.8:
+                        print(f"Agent failed to move to {action}")
+                        action.selected_action = random.choice(Action.ACTIONS)
+                if self.successor(action.selected_action) == True:
+                    if action.selected_action == 'R':
+                        self.location[1] += 1
+                    elif action.selected_action == 'L':
+                        self.location[1] -= 1
+                    elif action.selected_action == 'U':
+                        self.location[0] -= 1
+                    elif action.selected_action == 'D':
+                        self.location[0] += 1
+            
+            dirty_rooms = 0
+            for room in self.rooms:
+                dirty_rooms += sum(room)
+            self.pref_measure.F5 += dirty_rooms
 
-        else:
-            if self.non_deterministic:
-                if random.random() > 0.8:
-                    print(f"Agent failed to move to {action}")
-                    moves = ['U', 'D', 'L', 'R']
-                    act = random.choice(moves)
-                    action = act
-            if self.successor(action) == True:
-                if action == 'R':
-                    self.location[1] += 1
-                elif action == 'L':
-                    self.location[1] -= 1
-                elif action == 'U':
-                    self.location[0] -= 1
-                elif action == 'D':
-                    self.location[0] += 1
-            elif self.successor(action) == False:
-                return self.location
-        
-        dirty_rooms = 0
-        for room in self.rooms:
-            dirty_rooms += sum(room)
-        self.pref_measure.F5 += dirty_rooms
-        return self.location
-
+        return
+    
     def goal_test(self):
         res = 0
         for row in self.rooms:
