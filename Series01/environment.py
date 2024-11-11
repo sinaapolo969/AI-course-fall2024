@@ -9,7 +9,8 @@ class VacuumWorld:
 
     def __init__(self, size=(4, 4), L_sahpe = False, observability='Fully', num_agents=1,
                  non_deterministic=False, sequential=False, dynamic=False,
-                 continuous=False, perf_measure:PerfurmanceMeasure=None) -> None:
+                 continuous=False, perf_measure:PerfurmanceMeasure=None, 
+                 no_location_sensor=False, no_status_sensor=False) -> None:
         # Env attributes
         self.size = size
         self.observability = observability
@@ -20,6 +21,8 @@ class VacuumWorld:
         self.continuous = continuous
         self.L_shape = L_sahpe
         self.pref_measure = perf_measure
+        self.no_location_sensor = no_location_sensor
+        self.no_status_sensor = no_status_sensor
         self.location = [0, 0]
 
         self.__initialize_rooms()
@@ -57,6 +60,8 @@ class VacuumWorld:
         """
         get the status of current loc.
         """
+        if self.no_status_sensor:
+            return None
         return self.rooms[self.location[0]][self.location[1]]
 
     def step(self, action):
