@@ -18,8 +18,8 @@ class SimpleReflexive(AbstractAgent):
                 action.selected_action = 'U'
             if percept.room == [0, 1] and percept.room != None:
                 action.selected_action = 'L'
-            if percept.room == [0, 0]: # location sensor doesnt matter in this case, it would be random anyway!
-                action.selected_action = random.choice(Action.ACTIONS - 'S') # for [0, 0] room agnet will move randomly
+            if percept.room == [0, 0] or percept.room == None: # location sensor doesnt matter in this case, it would be random anyway!
+                action.selected_action = random.choice(Action.ACTIONS[:4]) # for [0, 0] room agnet will move randomly
 
             print(f"I'll go {action.selected_action[0]}")
             return action

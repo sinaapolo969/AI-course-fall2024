@@ -8,15 +8,15 @@ from abstract_agent import *
 
 class VacuumWorld:
 
-    def __init__(self, agent, size=(4, 4), L_sahpe = False, observability='Fully', num_agents=1,
-                 non_deterministic=False, sequential=False, dynamic=False,
+    def __init__(self, agent:AbstractAgent, size=(4, 4), L_sahpe= False, num_agents=1,
+                 non_deterministic_vacuum=False, non_determenistic_move=False, sequential=False, dynamic=False,
                  continuous=False, perf_measure:PerfurmanceMeasure=None, 
                  no_location_sensor=False, no_status_sensor=False) -> None:
         # Env attributes
         self.size = size
-        self.observability = observability
         self.num_agents = num_agents
-        self.non_deterministic = non_deterministic
+        self.non_deterministic_vacuum = non_deterministic_vacuum
+        self.non_determenistic_move = non_determenistic_move
         self.sequential = sequential
         self.dynamic = dynamic
         self.continuous = continuous
@@ -62,10 +62,19 @@ class VacuumWorld:
         """
         get the status of current loc.
         """
-        if self.no_status_sensor:
-            return None
         return self.rooms[self.location[0]][self.location[1]]
 
+    def get_clean_rooms_location(self) -> int:
+        """
+        get the location of the clean rooms.
+        """
+        clean_rooms = []
+        for i in range(len(self.rooms)):
+            for j in range(len(self.rooms[i])):
+                if self.rooms[i][j] == 0:
+                    clean_rooms.append([i, j])
+        return clean_rooms
+    
     def run(self, step_size=1) -> Any:
         """
         get action from agent and updates the rooms.
@@ -75,18 +84,22 @@ class VacuumWorld:
                 percept = State(None, self.get_status())
             elif self.no_status_sensor:
                 percept = State(self.location, None)
-            elif self.no_location_sensor and self.no_status_sensor:
-                percept = State(None, None)
             else:
                 percept = State(self.location, self.get_status())
-            action = self.abs_agent.run(percept, step_size=step_size)            
+            action = self.abs_agent.run(percept, step_size=step_size)    
+            if self.dynamic: 
+                if random.random() < 0.2:
+                    clean_rooms = self.get_clean_rooms_location()
+                    if len(clean_rooms) > 0:
+                        random_room = random.choice(clean_rooms)
+                        self.rooms[random_room[0]][random_room[1]] = 1
             if self.successor(action.selected_action) == True:
                 self.pref_measure.F1 += 1
             elif self.successor(action.selected_action) == False:
                 self.pref_measure.F2 += 1
 
             if action.selected_action == 'S':
-                if self.non_deterministic:
+                if self.non_deterministic_vacuum:
                     if random.random() < 0.8:
                         self.rooms[self.location[0]][self.location[1]] = 0
                         self.pref_measure.F4 += 1
@@ -98,10 +111,11 @@ class VacuumWorld:
                     self.pref_measure.F4 += 1
 
             else:
-                if self.non_deterministic:
+                if self.non_determenistic_move:
                     if random.random() > 0.8:
-                        print(f"Agent failed to move to {action}")
+                        print(f"Agent failed to move to {action.selected_action}")
                         action.selected_action = random.choice(Action.ACTIONS)
+                        print(f"Agent will move to {action.selected_action}")
                 if self.successor(action.selected_action) == True:
                     if action.selected_action == 'R':
                         self.location[1] += 1

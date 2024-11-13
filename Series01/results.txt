@@ -1,0 +1,108 @@
+{'non_deterministic_vacuum': False, 'non_determenistic_move': False, 'dynamic': False, 'no_location_sensor': False, 'no_status_sensor': False}
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+|   Agent Moves |   Unsuccessful Agent Moves |   Unsuccessful Vacuums |   Successful Vacuums |   Dirty Rooms After Step |
++===============+============================+========================+======================+==========================+
+|             1 |                          0 |                      0 |                    2 |                        2 |
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+{'non_deterministic_vacuum': False, 'non_determenistic_move': False, 'dynamic': False, 'no_location_sensor': False, 'no_status_sensor': True}
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+|   Agent Moves |   Unsuccessful Agent Moves |   Unsuccessful Vacuums |   Successful Vacuums |   Dirty Rooms After Step |
++===============+============================+========================+======================+==========================+
+|             4 |                          4 |                      0 |                    2 |                       15 |
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+{'non_deterministic_vacuum': False, 'non_determenistic_move': False, 'dynamic': False, 'no_location_sensor': True, 'no_status_sensor': False}
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+|   Agent Moves |   Unsuccessful Agent Moves |   Unsuccessful Vacuums |   Successful Vacuums |   Dirty Rooms After Step |
++===============+============================+========================+======================+==========================+
+|             3 |                          8 |                      0 |                    1 |                       11 |
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+{'non_deterministic_vacuum': False, 'non_determenistic_move': False, 'dynamic': True, 'no_location_sensor': False, 'no_status_sensor': False}
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+|   Agent Moves |   Unsuccessful Agent Moves |   Unsuccessful Vacuums |   Successful Vacuums |   Dirty Rooms After Step |
++===============+============================+========================+======================+==========================+
+|            11 |                          8 |                      0 |                    6 |                       30 |
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+{'non_deterministic_vacuum': False, 'non_determenistic_move': True, 'dynamic': False, 'no_location_sensor': False, 'no_status_sensor': False}
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+|   Agent Moves |   Unsuccessful Agent Moves |   Unsuccessful Vacuums |   Successful Vacuums |   Dirty Rooms After Step |
++===============+============================+========================+======================+==========================+
+|             4 |                          9 |                      0 |                    3 |                       19 |
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+{'non_deterministic_vacuum': True, 'non_determenistic_move': False, 'dynamic': False, 'no_location_sensor': False, 'no_status_sensor': False}
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+|   Agent Moves |   Unsuccessful Agent Moves |   Unsuccessful Vacuums |   Successful Vacuums |   Dirty Rooms After Step |
++===============+============================+========================+======================+==========================+
+|             1 |                          0 |                      0 |                    2 |                        2 |
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+{'non_deterministic_vacuum': True, 'non_determenistic_move': False, 'dynamic': True, 'no_location_sensor': False, 'no_status_sensor': False}
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+|   Agent Moves |   Unsuccessful Agent Moves |   Unsuccessful Vacuums |   Successful Vacuums |   Dirty Rooms After Step |
++===============+============================+========================+======================+==========================+
+|             0 |                          0 |                      0 |                    0 |                        0 |
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+{'non_deterministic_vacuum': True, 'non_determenistic_move': False, 'dynamic': False, 'no_location_sensor': True, 'no_status_sensor': False}
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+|   Agent Moves |   Unsuccessful Agent Moves |   Unsuccessful Vacuums |   Successful Vacuums |   Dirty Rooms After Step |
++===============+============================+========================+======================+==========================+
+|             5 |                          9 |                      0 |                    2 |                       16 |
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+{'non_deterministic_vacuum': True, 'non_determenistic_move': False, 'dynamic': False, 'no_location_sensor': False, 'no_status_sensor': True}
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+|   Agent Moves |   Unsuccessful Agent Moves |   Unsuccessful Vacuums |   Successful Vacuums |   Dirty Rooms After Step |
++===============+============================+========================+======================+==========================+
+|            23 |                         39 |                      2 |                   12 |                       78 |
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+{'non_deterministic_vacuum': False, 'non_determenistic_move': True, 'dynamic': True, 'no_location_sensor': False, 'no_status_sensor': False}
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+|   Agent Moves |   Unsuccessful Agent Moves |   Unsuccessful Vacuums |   Successful Vacuums |   Dirty Rooms After Step |
++===============+============================+========================+======================+==========================+
+|            30 |                         15 |                      0 |                   14 |                       79 |
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+{'non_deterministic_vacuum': False, 'non_determenistic_move': True, 'dynamic': False, 'no_location_sensor': True, 'no_status_sensor': False}
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+|   Agent Moves |   Unsuccessful Agent Moves |   Unsuccessful Vacuums |   Successful Vacuums |   Dirty Rooms After Step |
++===============+============================+========================+======================+==========================+
+|             1 |                          1 |                      0 |                    2 |                        3 |
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+{'non_deterministic_vacuum': False, 'non_determenistic_move': True, 'dynamic': False, 'no_location_sensor': False, 'no_status_sensor': True}
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+|   Agent Moves |   Unsuccessful Agent Moves |   Unsuccessful Vacuums |   Successful Vacuums |   Dirty Rooms After Step |
++===============+============================+========================+======================+==========================+
+|             3 |                          8 |                      0 |                    4 |                       14 |
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+{'non_deterministic_vacuum': False, 'non_determenistic_move': False, 'dynamic': True, 'no_location_sensor': True, 'no_status_sensor': False}
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+|   Agent Moves |   Unsuccessful Agent Moves |   Unsuccessful Vacuums |   Successful Vacuums |   Dirty Rooms After Step |
++===============+============================+========================+======================+==========================+
+|            23 |                         53 |                      0 |                   22 |                      168 |
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+{'non_deterministic_vacuum': False, 'non_determenistic_move': False, 'dynamic': True, 'no_location_sensor': False, 'no_status_sensor': True}
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+|   Agent Moves |   Unsuccessful Agent Moves |   Unsuccessful Vacuums |   Successful Vacuums |   Dirty Rooms After Step |
++===============+============================+========================+======================+==========================+
+|           181 |                        376 |                      0 |                  126 |                     1568 |
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+{'non_deterministic_vacuum': True, 'non_determenistic_move': False, 'dynamic': True, 'no_location_sensor': True, 'no_status_sensor': False}
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+|   Agent Moves |   Unsuccessful Agent Moves |   Unsuccessful Vacuums |   Successful Vacuums |   Dirty Rooms After Step |
++===============+============================+========================+======================+==========================+
+|             3 |                         23 |                      3 |                   10 |                       75 |
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+{'non_deterministic_vacuum': True, 'non_determenistic_move': False, 'dynamic': True, 'no_location_sensor': False, 'no_status_sensor': True}
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+|   Agent Moves |   Unsuccessful Agent Moves |   Unsuccessful Vacuums |   Successful Vacuums |   Dirty Rooms After Step |
++===============+============================+========================+======================+==========================+
+|            40 |                         78 |                      6 |                   18 |                      335 |
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+{'non_deterministic_vacuum': False, 'non_determenistic_move': True, 'dynamic': True, 'no_location_sensor': True, 'no_status_sensor': False}
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+|   Agent Moves |   Unsuccessful Agent Moves |   Unsuccessful Vacuums |   Successful Vacuums |   Dirty Rooms After Step |
++===============+============================+========================+======================+==========================+
+|             0 |                          0 |                      0 |                    1 |                        0 |
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+{'non_deterministic_vacuum': False, 'non_determenistic_move': True, 'dynamic': True, 'no_location_sensor': False, 'no_status_sensor': True}
++---------------+----------------------------+------------------------+----------------------+--------------------------+
+|   Agent Moves |   Unsuccessful Agent Moves |   Unsuccessful Vacuums |   Successful Vacuums |   Dirty Rooms After Step |
++===============+============================+========================+======================+==========================+
+|            74 |                        164 |                      0 |                   44 |                      685 |
++---------------+----------------------------+------------------------+----------------------+--------------------------+
