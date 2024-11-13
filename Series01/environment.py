@@ -133,6 +133,10 @@ class VacuumWorld:
 
         return
     
+    def reset(self):
+        self.__initialize_rooms()
+        self.location = [0, 0]
+    
     def goal_test(self):
         res = 0
         for row in self.rooms:

@@ -31,6 +31,7 @@ for param in params:
     env = VacuumWorld(agent=agent, L_sahpe=True, perf_measure=pref_measure, **param)
     for i in range(100): 
         env.run(1)
+        env.reset()
     headers = ["Agent Moves", "Unsuccessful Agent Moves", "Unsuccessful Vacuums", "Successful Vacuums", "Dirty Rooms After Step"]
     values = [pref_measure.F1, pref_measure.F2, pref_measure.F3, pref_measure.F4, pref_measure.F5]
 
