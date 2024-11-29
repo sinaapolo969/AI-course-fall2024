@@ -9,7 +9,7 @@ def main():
     agent = SnakeRubikAgent(environment)
 
     # Solve the Snake Rubik problem using A* Search
-    solution = agent.a_star()
+    solution = agent.ucs() # you can set to UCS
 
     # Print the solution
     print(solution)

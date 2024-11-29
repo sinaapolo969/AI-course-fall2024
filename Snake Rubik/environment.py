@@ -2,6 +2,7 @@ from math import radians, cos, sin
 import heapq
 
 from matplotlib import pyplot as plt
+from copy import deepcopy
 
 class SnakeRubikEnvironment:
     def __init__(self):

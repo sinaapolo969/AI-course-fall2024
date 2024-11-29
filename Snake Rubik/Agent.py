@@ -83,3 +83,46 @@ class SnakeRubikAgent:
             if c % 1000 == 0:
                 self.environment.plot_states()
         return None  # No solution found
+    
+    def ucs(self):
+        """
+        Solve the Snake Rubik problem using Uniform-Cost Search (UCS).
+        Returns the solution as a list of moves.
+        """
+        # Priority queue for UCS
+        frontier = []
+        heapq.heappush(frontier, (0, tuple(self.environment.state.items()), []))  # (cost, serialized_state, path)
+        # Set to keep track of visited states
+        visited = set()
+        c = 0
+        while frontier:
+            cost, serialized_state, path = heapq.heappop(frontier)
+            # Deserialize the state
+            current_state = dict(serialized_state)
+            if serialized_state in visited:
+                continue
+            # Mark the state as visited
+            visited.add(serialized_state)
+            # Check if the goal is reached
+            self.environment.state = current_state  # Update the environment's state
+            if self.environment.is_solved():
+                return path
+            # Expand the current state
+            for bead1, bead2 in self.get_valid_moves(current_state):
+                for angle in [90, -90, 180]:
+                    original_state = self.environment.state.copy()
+                    self.apply_rotation(bead1, bead2, angle)
+                    # Serialize the new state
+                    new_state = self.environment.state.copy()
+                    serialized_new_state = tuple(new_state.items())
+                    if serialized_new_state not in visited:
+                        new_cost = cost + 1
+                        new_path = path + [(bead1, bead2, angle)]
+                        heapq.heappush(frontier, (new_cost, serialized_new_state, new_path))
+                        if self.environment.is_solved():
+                            return new_path
+                    self.environment.state = original_state
+            c += 1
+            if c % 1000 == 0:
+                self.environment.plot_states()
+        return None 
