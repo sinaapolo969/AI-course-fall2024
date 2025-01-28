@@ -5,7 +5,9 @@ from matplotlib import pyplot as plt
 from copy import deepcopy
 
 class SnakeRubikEnvironment:
-    def __init__(self):
+    def __init__(self, sample=None, one_move=False):
+
+        self.glued_beads = {(5, 6), (12, 13), (14, 15), (16, 18), (18, 19)}
         self.beads = {
             1: (-5, 2, -6),
             2: (-5, 2, -5),
@@ -35,6 +37,15 @@ class SnakeRubikEnvironment:
             26: (6, 0, 6),
             27: (7, 0, 6),
         }
+        if sample and not one_move:
+            self.beads = sample
+            self.state = self.beads.copy()
+        
+        if one_move and sample:
+            self.state = sample
+            self.rotate(23, 24, 90)
+            self.plot_states()
+
         self.solution = {
             1: (-1, 1, -1), # 1
             2: (0, 1, -1), # 2
@@ -65,13 +76,12 @@ class SnakeRubikEnvironment:
             27: (1, -1, 1), # 27
         }
         self.solution_vals = set(self.solution.values())
-        self.glued_beads = {(5, 6), (12, 13), (14, 15), (16, 18), (18, 19)}
-        self.state = self.beads.copy()
+        
 
     def rotate(self, bead1, bead2, angle):
         if (bead1, bead2) in self.glued_beads or (bead2, bead1) in self.glued_beads:
             return
-        if angle not in [90, -90, 180]:
+        if angle not in [90, -90]:
             return
         axis = self.get_shared_axis(bead1, bead2)
         if not axis:
@@ -110,6 +120,13 @@ class SnakeRubikEnvironment:
             x, y = cos(angle)*(x - ox) - sin(angle)*(y - oy) + ox, sin(angle)*(x - ox) + cos(angle)*(y - oy) + oy
         return (round(x), round(y), round(z))
 
+    def get_neighbors(self, bead):
+        neighbors = []
+        for bead1 in self.solution.keys():
+            if self.get_shared_axis(bead, bead1) != None:
+                neighbors.append(bead1)
+        return neighbors
+    
     def is_solved(self):
         return self.solution_vals == set(self.state.values())
 
@@ -125,9 +142,9 @@ class SnakeRubikEnvironment:
         for i, (px, py, pz) in enumerate(points, 1):
             ax.text(px, py, pz, f'{i}', color='red')
 
-        ax.set_xlim([-7, 7])
-        ax.set_ylim([-7, 7])
-        ax.set_zlim([-7, 7])
+        ax.set_xlim([-4, 4])
+        ax.set_ylim([-4, 4])
+        ax.set_zlim([-4, 4])
 
         ax.set_xlabel('X-axis')
         ax.set_ylabel('Y-axis')
